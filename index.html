@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+]<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,16 +10,18 @@
         :root {
             --primary: #FFFFFF;
             --secondary: #0A192F;
-            --accent: #1E88E5;
-            --accent-light: #64B5F6;
-            --highlight: #F8F9FA;
-            --highlight-dark: #E0E6ED;
-            --success: #43A047;
-            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.12);
+            --accent: #2563EB;
+            --accent-light: #3B82F6;
+            --accent-dark: #1D4ED8;
+            --highlight: #F8FAFC;
+            --highlight-dark: #E2E8F0;
+            --success: #10B981;
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            --shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.15);
             --radius: 16px;
             --header-height: 90px;
+            --section-padding: 140px;
         }
 
         * {
@@ -40,7 +42,7 @@
             overflow-x: hidden;
             line-height: 1.7;
             position: relative;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -52,13 +54,14 @@
         }
 
         h1 {
-            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+            font-size: clamp(3rem, 6vw, 5rem);
             font-weight: 800;
             letter-spacing: -0.03em;
+            line-height: 1.1;
         }
 
         h2 {
-            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             position: relative;
             padding-bottom: 1.5rem;
             margin-bottom: 3rem;
@@ -91,7 +94,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 42px;
+            padding: 18px 48px;
             background: transparent;
             border: 2px solid var(--accent);
             color: var(--accent);
@@ -106,6 +109,7 @@
             overflow: hidden;
             z-index: 1;
             border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .btn:before {
@@ -132,15 +136,17 @@
             border-color: var(--accent);
             color: var(--primary);
             background: var(--accent);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
         }
 
         .btn-accent:hover {
             border-color: var(--accent-light);
             background: var(--accent-light);
+            transform: translateY(-3px);
         }
 
         section {
-            padding: 140px 0;
+            padding: var(--section-padding) 0;
             position: relative;
         }
 
@@ -165,7 +171,7 @@
             transition: var(--transition);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
             height: var(--header-height);
         }
 
@@ -197,8 +203,8 @@
         }
 
         .logo i {
-            font-size: 1.5rem;
-            margin-right: 10px;
+            font-size: 1.8rem;
+            margin-right: 12px;
             color: var(--accent);
         }
 
@@ -338,74 +344,64 @@
 
         .shape {
             position: absolute;
-            border: 1px solid rgba(26, 115, 232, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.1);
             border-radius: 50%;
+            animation: float 15s ease-in-out infinite;
         }
 
-        /* Services */
-        .services-grid {
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, #0A192F 0%, #1E293B 100%);
+            padding: 100px 0;
+            color: white;
+        }
+        
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 30px;
-            margin-top: 60px;
+            margin-top: 50px;
         }
-
-        .service-card {
+        
+        .stat-card {
             text-align: center;
             padding: 50px 30px;
-            background: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: var(--radius);
             transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--highlight-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .service-card:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 0;
-            background: rgba(26, 115, 232, 0.05);
-            z-index: -1;
-            transition: var(--transition);
-        }
-
-        .service-card:hover {
+        
+        .stat-card:hover {
             transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-
-        .service-card:hover:before {
-            height: 100%;
-        }
-
-        .service-icon {
+        
+        .stat-number {
             font-size: 3.5rem;
-            margin-bottom: 30px;
-            transition: var(--transition);
-            color: var(--accent);
-        }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.2);
+            font-weight: 800;
+            margin: 20px 0;
+            font-family: 'Montserrat', sans-serif;
             color: var(--accent-light);
+            position: relative;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            color: #CBD5E1;
         }
 
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #121212;
-        }
-
-        /* Why Choose Us */
+        /* Why Choose Us Section */
         .why-us {
             background: var(--highlight);
+            padding: 120px 0;
+            position: relative;
         }
 
         .features {
@@ -471,68 +467,73 @@
             content: '+';
         }
 
-        /* About */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .about-image {
-            position: relative;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transform: rotate(-2deg);
-            transform-origin: center;
-            transition: var(--transition);
-            border: 10px solid var(--primary);
-        }
-
-        .about-image:hover {
-            transform: rotate(0deg);
-        }
-
-        .about-image img {
-            width: 100%;
-            display: block;
-            transition: var(--transition);
-        }
-
-        .values {
+        /* Services */
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            gap: 40px;
             margin-top: 60px;
         }
 
-        .value-card {
+        .service-card {
             text-align: center;
-            padding: 40px 30px;
+            padding: 60px 40px;
             background: var(--primary);
             border-radius: var(--radius);
             transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
             box-shadow: var(--shadow);
             border: 1px solid var(--highlight-dark);
         }
 
-        .value-card:hover {
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(37, 99, 235, 0.05);
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-hover);
         }
 
-        .value-icon {
-            font-size: 2.8rem;
-            margin-bottom: 25px;
+        .service-card:hover:before {
+            height: 100%;
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            transition: var(--transition);
             color: var(--accent);
+            position: relative;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2);
+            color: var(--accent-light);
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #121212;
         }
 
         /* Solutions */
         .solutions-banner {
-            height: 500px;
+            height: 600px;
             background: 
-                linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+                linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -595,7 +596,381 @@
         }
 
         .solution-content {
+            padding: 50px 40px;
+        }
+
+        .solution-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+        }
+
+        .solution-features {
+            margin: 25px 0;
+            padding-left: 20px;
+        }
+
+        .solution-features li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .solution-features li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Technology Stack */
+        .tech-stack {
+            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+            color: white;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .tech-item {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tech-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .tech-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent-light);
+        }
+
+        /* About Us Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transform: rotate(-2deg);
+            transform-origin: center;
+            transition: var(--transition);
+            border: 10px solid var(--primary);
+        }
+
+        .about-image:hover {
+            transform: rotate(0deg);
+        }
+
+        .about-image img {
+            width: 100%;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .value-card {
+            text-align: center;
             padding: 40px 30px;
+            background: var(--primary);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--highlight-dark);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .value-icon {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .achievement-icon {
+            background: rgba(37, 99, 235, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .achievement-icon i {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--highlight);
+            padding: 100px 0;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-card {
+            background: var(--primary);
+            padding: 50px 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            position: relative;
+            border: 1px solid var(--highlight-dark);
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            font-family: Georgia, serif;
+            color: var(--accent);
+            opacity: 0.2;
+            line-height: 1;
+        }
+        
+        .testimonial-content {
+            margin-top: 40px;
+            font-style: italic;
+            color: #475569;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .client-info {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+        }
+        
+        .client-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 2px solid var(--accent);
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .client-details h4 {
+            margin-bottom: 5px;
+            color: #121212;
+            font-size: 1.2rem;
+        }
+        
+        .client-details p {
+            margin-bottom: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: var(--highlight);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .team-member {
+            background: var(--primary);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--highlight-dark);
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .member-photo {
+            height: 350px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 5rem;
+        }
+        
+        .member-info {
+            padding: 35px 30px;
+            text-align: center;
+        }
+        
+        .member-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .member-info .position {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .member-bio {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .member-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--highlight);
+            color: var(--accent);
+            transition: var(--transition);
+        }
+        
+        .member-social a:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Meet the Founder */
+        .founder-section {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .founder {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .founder-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 30px;
+            border: 3px solid var(--accent);
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 5rem;
+        }
+
+        .founder-quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .founder-name {
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        /* Partners */
+        .partners {
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .partners-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 60px;
+            margin-top: 50px;
+            align-items: center;
+        }
+        
+        .partner-logo {
+            width: 180px;
+            height: 100px;
+            background: var(--highlight);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #334155;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--highlight-dark);
+        }
+        
+        .partner-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
 
         /* Contact */
@@ -613,14 +988,14 @@
         .contact-form select,
         .contact-form textarea {
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             background: var(--highlight);
             border: 1px solid var(--highlight-dark);
             color: var(--secondary);
             font-family: 'Open Sans', sans-serif;
             font-size: 1.05rem;
             transition: var(--transition);
-            border-radius: 8px;
+            border-radius: 12px;
         }
 
         .contact-form input:focus,
@@ -629,7 +1004,7 @@
             outline: none;
             border-color: var(--accent);
             background: var(--primary);
-            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
         }
 
         .contact-form textarea {
@@ -710,11 +1085,14 @@
         .footer-about {
             max-width: 500px;
             color: #94A3B8;
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
 
         .social-icons {
             display: flex;
             margin-top: 30px;
+            gap: 15px;
         }
 
         .social-icons a {
@@ -725,7 +1103,6 @@
             height: 50px;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            margin-right: 15px;
             transition: var(--transition);
             font-size: 1.2rem;
             color: var(--primary);
@@ -802,29 +1179,31 @@
         }
 
         .cta-bar {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-            padding: 60px 40px;
+            background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+            padding: 80px 60px;
             border-radius: var(--radius);
             text-align: center;
             margin-bottom: 60px;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-hover);
         }
 
         .cta-bar h3, .cta-bar p {
             color: var(--primary);
+            position: relative;
+            z-index: 2;
         }
 
         .cta-bar h3 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-bottom: 20px;
         }
 
         .cta-bar p {
             max-width: 600px;
             margin: 0 auto 30px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
 
         /* Animations */
@@ -847,236 +1226,6 @@
             100% { transform: translate(0, 0) rotate(0deg); }
         }
 
-        /* New Elements */
-        .testimonials {
-            background: var(--highlight);
-            padding: 100px 0;
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .testimonial-card {
-            background: var(--primary);
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-        
-        .testimonial-card:before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 5rem;
-            font-family: Georgia, serif;
-            color: var(--accent);
-            opacity: 0.2;
-            line-height: 1;
-        }
-        
-        .testimonial-content {
-            margin-top: 40px;
-            font-style: italic;
-            color: #475569;
-        }
-        
-        .client-info {
-            display: flex;
-            align-items: center;
-            margin-top: 30px;
-        }
-        
-        .client-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-right: 15px;
-            border: 2px solid var(--accent);
-        }
-        
-        .client-details h4 {
-            margin-bottom: 5px;
-            color: #121212;
-        }
-        
-        .client-details p {
-            margin-bottom: 0;
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .partners {
-            text-align: center;
-            padding: 80px 0;
-        }
-        
-        .partners-logos {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 50px;
-            margin-top: 50px;
-            align-items: center;
-        }
-        
-        .partner-logo {
-            max-width: 150px;
-            filter: grayscale(100%);
-            opacity: 0.7;
-            transition: var(--transition);
-        }
-        
-        .partner-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.05);
-        }
-
-        /* Stats Section */
-        .stats-section {
-            background: linear-gradient(135deg, #0A192F 0%, #1E293B 100%);
-            padding: 100px 0;
-            color: white;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .stat-card {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius);
-            transition: var(--transition);
-        }
-        
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin: 20px 0;
-            font-family: 'Montserrat', sans-serif;
-            color: var(--accent-light);
-        }
-        
-        .stat-label {
-            font-size: 1.2rem;
-            color: #CBD5E1;
-        }
-
-        /* Team Section */
-        .team-section {
-            background: var(--highlight);
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 60px;
-        }
-        
-        .team-member {
-            background: var(--primary);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .member-photo {
-            height: 300px;
-            overflow: hidden;
-        }
-        
-        .member-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-        
-        .team-member:hover .member-photo img {
-            transform: scale(1.05);
-        }
-        
-        .member-info {
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .member-social {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .member-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--highlight);
-            color: var(--accent);
-            transition: var(--transition);
-        }
-        
-        .member-social a:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Technology Stack */
-        .tech-stack {
-            background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
-            color: white;
-        }
-        
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 30px;
-            margin-top: 60px;
-        }
-        
-        .tech-item {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: var(--radius);
-            transition: var(--transition);
-        }
-        
-        .tech-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
-        }
-        
-        .tech-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--accent-light);
-        }
-
         /* Responsive */
         @media (max-width: 1200px) {
             .services-grid,
@@ -1088,6 +1237,10 @@
             .team-grid,
             .tech-grid {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -1103,6 +1256,10 @@
             
             .tech-grid {
                 grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .footer-top {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1160,16 +1317,51 @@
                 grid-template-columns: 1fr;
             }
 
-            .footer-top {
-                grid-template-columns: 1fr;
-            }
-
             .footer-links {
                 grid-template-columns: 1fr;
             }
             
             .tech-grid {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            /* Mobile font size adjustments */
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 14px 30px;
+                font-size: 0.85rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.4rem;
+            }
+            
+            .solution-content h3 {
+                font-size: 1.5rem;
             }
         }
 
@@ -1187,15 +1379,27 @@
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
             .hero p {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
             
             .tech-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .counter {
+                font-size: 2.5rem;
+            }
+            
+            .feature-icon {
+                font-size: 2.8rem;
+            }
+            
+            .value-icon {
+                font-size: 2.2rem;
             }
         }
     </style>
@@ -1241,7 +1445,7 @@
                 <p>VisionMinds delivers transformative AI and automation solutions that drive operational excellence and accelerate business growth for global enterprises.</p>
                 <div class="hero-btns">
                     <a href="#solutions" class="btn btn-accent">Explore Solutions</a>
-                    <a href="#contact" class="btn" style="margin-left: 20px;">Schedule Consultation</a>
+                    <a href="#contact" class="btn">Schedule Consultation</a>
                 </div>
             </div>
         </div>
@@ -1270,6 +1474,40 @@
                 <div class="stat-card fade-in">
                     <div class="stat-number">98%</div>
                     <div class="stat-label">Client Retention Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-us">
+        <div class="container">
+            <div class="text-center fade-in">
+                <h2>Why Choose Us</h2>
+                <p>What makes us different from other solution providers</p>
+            </div>
+            <div class="features">
+                <div class="feature fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Expert Team</h3>
+                    <p>Our team combines deep engineering expertise with cutting-edge AI knowledge</p>
+                </div>
+                <div class="feature fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Proven ROI</h3>
+                    <div class="counter">120</div>
+                    <p>Average efficiency improvement for our clients</p>
+                </div>
+                <div class="feature fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
+                    <h3>Rapid Deployment</h3>
+                    <p>Fast implementation without compromising quality</p>
                 </div>
             </div>
         </div>
@@ -1315,6 +1553,22 @@
                     <p>Lean Six Sigma methodologies enhanced with AI-driven insights for continuous performance improvement.</p>
                     <a href="#" class="btn" style="margin-top: 20px;">Learn More</a>
                 </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Digital Transformation</h3>
+                    <p>Comprehensive strategies to modernize legacy systems and implement cutting-edge digital solutions.</p>
+                    <a href="#" class="btn" style="margin-top: 20px;">Learn More</a>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Cybersecurity & Compliance</h3>
+                    <p>Enterprise-grade security solutions ensuring data protection and regulatory compliance for automated systems.</p>
+                    <a href="#" class="btn" style="margin-top: 20px;">Learn More</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1330,60 +1584,76 @@
             <div class="solutions-grid">
                 <div class="solution-card fade-in">
                     <div class="solution-image">
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='600' height='400' fill='%23f0f0f0'/><rect x='50' y='50' width='500' height='300' rx='20' fill='%231a73e8' opacity='0.2'/><circle cx='300' cy='200' r='80' fill='%231a73e8' opacity='0.1'/><text x='300' y='220' font-family='Arial' font-size='24' fill='%23121212' text-anchor='middle' font-weight='bold'>Process Automation</text></svg>" alt="Process Automation">
+                        <div class="member-photo">
+                            <i class="fas fa-robot"></i>
+                        </div>
                     </div>
                     <div class="solution-content">
                         <h3>VisionAutomate Platform</h3>
                         <p>Comprehensive automation suite with intelligent workflow orchestration, RPA, and process mining capabilities designed for enterprise scalability.</p>
-                        <ul style="margin: 20px 0; padding-left: 20px;">
-                            <li style="margin-bottom: 10px;">AI-powered process discovery</li>
-                            <li style="margin-bottom: 10px;">Enterprise-grade orchestration</li>
-                            <li style="margin-bottom: 10px;">Real-time performance analytics</li>
+                        <ul class="solution-features">
+                            <li>AI-powered process discovery</li>
+                            <li>Enterprise-grade orchestration</li>
+                            <li>Real-time performance analytics</li>
+                            <li>Seamless legacy system integration</li>
+                            <li>Compliance and audit trails</li>
                         </ul>
                         <a href="#" class="btn">Request Demo</a>
                     </div>
                 </div>
                 <div class="solution-card fade-in">
                     <div class="solution-image">
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='600' height='400' fill='%23f0f0f0'/><rect x='50' y='50' width='500' height='300' rx='20' fill='%231a73e8' opacity='0.2'/><circle cx='300' cy='200' r='80' fill='%231a73e8' opacity='0.1'/><text x='300' y='220' font-family='Arial' font-size='24' fill='%23121212' text-anchor='middle' font-weight='bold'>Construction Tech</text></svg>" alt="Construction Tech">
+                        <div class="member-photo">
+                            <i class="fas fa-building"></i>
+                        </div>
                     </div>
                     <div class="solution-content">
                         <h3>SmartBuild System</h3>
                         <p>Integrated construction management platform with IoT sensors, AI forecasting, and real-time resource optimization for complex projects.</p>
-                        <ul style="margin: 20px 0; padding-left: 20px;">
-                            <li style="margin-bottom: 10px;">Predictive risk assessment</li>
-                            <li style="margin-bottom: 10px;">Automated resource allocation</li>
-                            <li style="margin-bottom: 10px;">Real-time progress tracking</li>
+                        <ul class="solution-features">
+                            <li>Predictive risk assessment</li>
+                            <li>Automated resource allocation</li>
+                            <li>Real-time progress tracking</li>
+                            <li>Supply chain optimization</li>
+                            <li>Safety compliance monitoring</li>
                         </ul>
                         <a href="#" class="btn">Request Demo</a>
                     </div>
                 </div>
                 <div class="solution-card fade-in">
                     <div class="solution-image">
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='600' height='400' fill='%23f0f0f0'/><rect x='50' y='50' width='500' height='300' rx='20' fill='%231a73e8' opacity='0.2'/><circle cx='300' cy='200' r='80' fill='%231a73e8' opacity='0.1'/><text x='300' y='220' font-family='Arial' font-size='24' fill='%23121212' text-anchor='middle' font-weight='bold'>Process Improvement</text></svg>" alt="Process Improvement">
+                        <div class="member-photo">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
                     </div>
                     <div class="solution-content">
                         <h3>Operational Intelligence Suite</h3>
                         <p>AI-powered continuous improvement platform that identifies optimization opportunities and predicts performance outcomes.</p>
-                        <ul style="margin: 20px 0; padding-left: 20px;">
-                            <li style="margin-bottom: 10px;">Process mining technology</li>
-                            <li style="margin-bottom: 10px;">Predictive performance modeling</li>
-                            <li style="margin-bottom: 10px;">Automated optimization recommendations</li>
+                        <ul class="solution-features">
+                            <li>Process mining technology</li>
+                            <li>Predictive performance modeling</li>
+                            <li>Automated optimization recommendations</li>
+                            <li>Real-time KPI dashboards</li>
+                            <li>Cross-departmental workflow analysis</li>
                         </ul>
                         <a href="#" class="btn">Request Demo</a>
                     </div>
                 </div>
                 <div class="solution-card fade-in">
                     <div class="solution-image">
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='600' height='400' fill='%23f0f0f0'/><rect x='50' y='50' width='500' height='300' rx='20' fill='%231a73e8' opacity='0.2'/><circle cx='300' cy='200' r='80' fill='%231a73e8' opacity='0.1'/><text x='300' y='220' font-family='Arial' font-size='24' fill='%23121212' text-anchor='middle' font-weight='bold'>AI Consultancy</text></svg>" alt="AI Consultancy">
+                        <div class="member-photo">
+                            <i class="fas fa-brain"></i>
+                        </div>
                     </div>
                     <div class="solution-content">
                         <h3>Enterprise AI Framework</h3>
                         <p>Comprehensive AI implementation methodology that integrates machine learning models with existing enterprise systems.</p>
-                        <ul style="margin: 20px 0; padding-left: 20px;">
-                            <li style="margin-bottom: 10px;">Custom AI model development</li>
-                            <li style="margin-bottom: 10px;">Data strategy & governance</li>
-                            <li style="margin-bottom: 10px;">Scalable MLOps infrastructure</li>
+                        <ul class="solution-features">
+                            <li>Custom AI model development</li>
+                            <li>Data strategy & governance</li>
+                            <li>Scalable MLOps infrastructure</li>
+                            <li>Predictive analytics engine</li>
+                            <li>Natural language processing</li>
                         </ul>
                         <a href="#" class="btn">Request Demo</a>
                     </div>
@@ -1436,6 +1706,122 @@
                     </div>
                     <h3>TensorFlow</h3>
                 </div>
+                <div class="tech-item fade-in">
+                    <div class="tech-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Python</h3>
+                </div>
+                <div class="tech-item fade-in">
+                    <div class="tech-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Kubernetes</h3>
+                </div>
+                <div class="tech-item fade-in">
+                    <div class="tech-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Node.js</h3>
+                </div>
+                <div class="tech-item fade-in">
+                    <div class="tech-icon">
+                        <i class="fas fa-docker"></i>
+                    </div>
+                    <h3>Docker</h3>
+                </div>
+                <div class="tech-item fade-in">
+                    <div class="tech-icon">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <h3>React</h3>
+                </div>
+                <div class="tech-item fade-in">
+                    <div class="tech-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Fortinet</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <div class="container">
+            <div class="text-center fade-in">
+                <h2>About Us</h2>
+                <p>Our story, values, and commitment to excellence</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <h3>Who We Are</h3>
+                    <p>Founded in 2020 by Ritesh Rajpoot, VisionMinds Solution combines deep engineering expertise with cutting-edge AI to transform how businesses operate. From automating manual workflows in construction to embedding intelligent decision-making in manufacturing, we deliver tailored solutions that drive real results.</p>
+                    <p>Our approach blends technical excellence with business acumen to ensure that every solution we implement creates tangible value for your organization.</p>
+                    <div class="achievements">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div>
+                                <h4>200+ Projects</h4>
+                                <p>Successfully delivered automation solutions</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-globe-asia"></i>
+                            </div>
+                            <div>
+                                <h4>Global Reach</h4>
+                                <p>Clients in 12 countries across 3 continents</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image fade-in">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'><rect width='600' height='400' fill='%23f0f0f0'/><rect x='50' y='50' width='500' height='300' rx='20' fill='%232563eb' opacity='0.2'/><circle cx='300' cy='200' r='80' fill='%232563eb' opacity='0.1'/><text x='300' y='220' font-family='Arial' font-size='24' fill='%23121212' text-anchor='middle' font-weight='bold'>VisionMinds Team</text></svg>" alt="VisionMinds Team">
+                </div>
+            </div>
+            
+            <div class="values">
+                <div class="value-card fade-in">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>We prioritize transparency and ethics in every engagement.</p>
+                </div>
+                <div class="value-card fade-in">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>Relentless pursuit of smarter, faster solutions.</p>
+                </div>
+                <div class="value-card fade-in">
+                    <div class="value-icon">
+                        <i class="fas fa-people-carry"></i>
+                    </div>
+                    <h3>Partnership</h3>
+                    <p>We work as an extension of your team, every step of the way.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Founder -->
+    <section class="founder-section">
+        <div class="container">
+            <div class="text-center fade-in">
+                <h3>Meet the Founder</h3>
+            </div>
+            <div class="founder fade-in">
+                <div class="founder-image">
+                    <span>RR</span>
+                </div>
+                <p class="founder-quote">"Ritesh is a civil engineer turned AI strategist, passionate about leveraging technology to solve complex business challenges. His hands-on approach ensures every project exceeds expectations."</p>
+                <div class="founder-name">Ritesh Rajpoot, Founder & CEO</div>
             </div>
         </div>
     </section>
@@ -1450,12 +1836,10 @@
             <div class="testimonials-grid">
                 <div class="testimonial-card fade-in">
                     <div class="testimonial-content">
-                        "VisionMinds transformed our manufacturing process with their AI solutions. We saw a 45% increase in efficiency within just three months while reducing operational costs by 28%."
+                        "VisionMinds transformed our manufacturing process with their AI solutions. We saw a 45% increase in efficiency within just three months while reducing operational costs by 28%. Their team's expertise in industrial automation is unparalleled."
                     </div>
                     <div class="client-info">
-                        <div class="client-avatar">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='30' fill='%231a73e8' opacity='0.2'/><circle cx='30' cy='24' r='12' fill='%231a73e8' opacity='0.3'/><rect x='18' y='38' width='24' height='20' rx='10' fill='%231a73e8' opacity='0.3'/></svg>" alt="Client">
-                        </div>
+                        <div class="client-avatar">SJ</div>
                         <div class="client-details">
                             <h4>Sarah Johnson</h4>
                             <p>CTO, TechManufacture Inc.</p>
@@ -1464,12 +1848,10 @@
                 </div>
                 <div class="testimonial-card fade-in">
                     <div class="testimonial-content">
-                        "Their construction automation platform helped us complete our $200M project 30% faster while reducing costs by 22%. The predictive risk modeling feature alone prevented over $5M in potential delays."
+                        "Their construction automation platform helped us complete our $200M project 30% faster while reducing costs by 22%. The predictive risk modeling feature alone prevented over $5M in potential delays. VisionMinds became an extension of our team."
                     </div>
                     <div class="client-info">
-                        <div class="client-avatar">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='30' fill='%231a73e8' opacity='0.2'/><circle cx='30' cy='24' r='12' fill='%231a73e8' opacity='0.3'/><rect x='18' y='38' width='24' height='20' rx='10' fill='%231a73e8' opacity='0.3'/></svg>" alt="Client">
-                        </div>
+                        <div class="client-avatar">MC</div>
                         <div class="client-details">
                             <h4>Michael Chen</h4>
                             <p>Project Director, BuildRight Constructions</p>
@@ -1478,12 +1860,10 @@
                 </div>
                 <div class="testimonial-card fade-in">
                     <div class="testimonial-content">
-                        "The process automation solution VisionMinds implemented saved us over 500 hours per month. Their enterprise approach ensured seamless integration with our SAP systems and global compliance requirements."
+                        "The process automation solution VisionMinds implemented saved us over 500 hours per month. Their enterprise approach ensured seamless integration with our SAP systems and global compliance requirements. The ROI was evident within the first quarter."
                     </div>
                     <div class="client-info">
-                        <div class="client-avatar">
-                            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><circle cx='30' cy='30' r='30' fill='%231a73e8' opacity='0.2'/><circle cx='30' cy='24' r='12' fill='%231a73e8' opacity='0.3'/><rect x='18' y='38' width='24' height='20' rx='10' fill='%231a73e8' opacity='0.3'/></svg>" alt="Client">
-                        </div>
+                        <div class="client-avatar">PS</div>
                         <div class="client-details">
                             <h4>Priya Sharma</h4>
                             <p>Operations Director, Global Logistics Co.</p>
@@ -1498,18 +1878,16 @@
     <section class="team-section">
         <div class="container">
             <div class="text-center fade-in">
-                <h2>Leadership Team</h2>
+                <h2>Executive Leadership</h2>
                 <p>Industry experts driving our vision forward</p>
             </div>
             <div class="team-grid">
                 <div class="team-member fade-in">
-                    <div class="member-photo">
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f0f0f0'/><rect x='100' y='50' width='200' height='200' rx='100' fill='%231a73e8' opacity='0.2'/></svg>" alt="Ritesh Rajpoot">
-                    </div>
+                    <div class="member-photo">RR</div>
                     <div class="member-info">
                         <h3>Ritesh Rajpoot</h3>
-                        <p>Founder & CEO</p>
-                        <p class="member-bio" style="font-size: 0.9rem; margin-top: 10px;">Former engineering leader with 15+ years in AI implementation</p>
+                        <div class="position">Founder & CEO</div>
+                        <div class="member-bio">Former engineering leader with 15+ years in AI implementation and digital transformation. Spearheaded automation initiatives for Fortune 500 companies.</div>
                         <div class="member-social">
                             <a href="#"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1518,13 +1896,11 @@
                     </div>
                 </div>
                 <div class="team-member fade-in">
-                    <div class="member-photo">
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f0f0f0'/><rect x='100' y='50' width='200' height='200' rx='100' fill='%231a73e8' opacity='0.2'/></svg>" alt="Ananya Sharma">
-                    </div>
+                    <div class="member-photo">AS</div>
                     <div class="member-info">
                         <h3>Ananya Sharma</h3>
-                        <p>Chief Technology Officer</p>
-                        <p class="member-bio" style="font-size: 0.9rem; margin-top: 10px;">AI systems architect with expertise in enterprise solutions</p>
+                        <div class="position">Chief Technology Officer</div>
+                        <div class="member-bio">AI systems architect with expertise in enterprise solutions. Former head of AI research at TechInnovate with 12+ patents in machine learning.</div>
                         <div class="member-social">
                             <a href="#"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1533,13 +1909,11 @@
                     </div>
                 </div>
                 <div class="team-member fade-in">
-                    <div class="member-photo">
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f0f0f0'/><rect x='100' y='50' width='200' height='200' rx='100' fill='%231a73e8' opacity='0.2'/></svg>" alt="Michael Reynolds">
-                    </div>
+                    <div class="member-photo">MR</div>
                     <div class="member-info">
                         <h3>Michael Reynolds</h3>
-                        <p>VP of Global Operations</p>
-                        <p class="member-bio" style="font-size: 0.9rem; margin-top: 10px;">Lean Six Sigma Master Black Belt with manufacturing expertise</p>
+                        <div class="position">VP of Global Operations</div>
+                        <div class="member-bio">Lean Six Sigma Master Black Belt with manufacturing expertise. Transformed operations for 20+ global enterprises across multiple industries.</div>
                         <div class="member-social">
                             <a href="#"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1548,13 +1922,11 @@
                     </div>
                 </div>
                 <div class="team-member fade-in">
-                    <div class="member-photo">
-                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f0f0f0'/><rect x='100' y='50' width='200' height='200' rx='100' fill='%231a73e8' opacity='0.2'/></svg>" alt="James Wilson">
-                    </div>
+                    <div class="member-photo">JW</div>
                     <div class="member-info">
                         <h3>James Wilson</h3>
-                        <p>Director of AI Research</p>
-                        <p class="member-bio" style="font-size: 0.9rem; margin-top: 10px;">PhD in Machine Learning with 20+ published papers</p>
+                        <div class="position">Director of AI Research</div>
+                        <div class="member-bio">PhD in Machine Learning with 20+ published papers. Developed cutting-edge algorithms for predictive analytics and computer vision applications.</div>
                         <div class="member-social">
                             <a href="#"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1574,11 +1946,14 @@
                 <p>We partner with innovative organizations across sectors</p>
             </div>
             <div class="partners-logos">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='80' viewBox='0 0 150 80'><rect width='150' height='80' fill='white'/><text x='75' y='40' font-family='Arial' font-size='18' fill='%23121212' text-anchor='middle' font-weight='bold'>TechCorp</text></svg>" alt="Partner" class="partner-logo">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='80' viewBox='0 0 150 80'><rect width='150' height='80' fill='white'/><text x='75' y='40' font-family='Arial' font-size='18' fill='%23121212' text-anchor='middle' font-weight='bold'>BuildGroup</text></svg>" alt="Partner" class="partner-logo">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='80' viewBox='0 0 150 80'><rect width='150' height='80' fill='white'/><text x='75' y='40' font-family='Arial' font-size='18' fill='%23121212' text-anchor='middle' font-weight='bold'>GlobalLogix</text></svg>" alt="Partner" class="partner-logo">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='80' viewBox='0 0 150 80'><rect width='150' height='80' fill='white'/><text x='75' y='40' font-family='Arial' font-size='18' fill='%23121212' text-anchor='middle' font-weight='bold'>InnovateCo</text></svg>" alt="Partner" class="partner-logo">
-                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='80' viewBox='0 0 150 80'><rect width='150' height='80' fill='white'/><text x='75' y='40' font-family='Arial' font-size='18' fill='%23121212' text-anchor='middle' font-weight='bold'>FutureTech</text></svg>" alt="Partner" class="partner-logo">
+                <div class="partner-logo">TechCorp</div>
+                <div class="partner-logo">BuildGroup</div>
+                <div class="partner-logo">GlobalLogix</div>
+                <div class="partner-logo">InnovateCo</div>
+                <div class="partner-logo">FutureTech</div>
+                <div class="partner-logo">ConstructPro</div>
+                <div class="partner-logo">ManufactureX</div>
+                <div class="partner-logo">LogiChain</div>
             </div>
         </div>
     </section>
@@ -1690,13 +2065,14 @@
                 <div>
                     <div class="footer-logo">VisionMinds Solution</div>
                     <div class="footer-about">
-                        <p>Delivering cutting-edge automation and AI solutions to transform your business operations and drive sustainable growth.</p>
+                        <p>Delivering cutting-edge automation and AI solutions to transform your business operations and drive sustainable growth. Our enterprise-grade solutions have helped global leaders achieve unprecedented efficiency and innovation.</p>
                     </div>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="footer-links">
@@ -1806,8 +2182,8 @@
         });
 
         // Counter animation
-        const counter = document.querySelector('.counter');
-        if (counter) {
+        const counters = document.querySelectorAll('.stat-number, .counter');
+        counters.forEach(counter => {
             let count = 0;
             const target = parseInt(counter.textContent);
             const duration = 2000;
@@ -1830,12 +2206,6 @@
             });
             
             counterObserver.observe(counter);
-        }
-
-        // Floating shapes animation
-        const shapes = document.querySelectorAll('.shape');
-        shapes.forEach(shape => {
-            shape.style.animation = `float ${10 + Math.random() * 10}s ease-in-out infinite`;
         });
 
         // Initialize header after page load
@@ -1843,6 +2213,17 @@
             setTimeout(() => {
                 document.querySelector('header').style.opacity = 1;
             }, 500);
+        });
+
+        // Add animation to service cards on hover
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
         });
     </script>
 </body>
