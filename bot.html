@@ -24,6 +24,7 @@
             border: 1px solid #e2e8f0;
             display: none;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            pointer-events: auto; /* Ensures only the chatbot captures events */
         }
         
         .chatbot-container.active {
@@ -60,9 +61,9 @@
             gap: 10px;
         }
         
-        .chatbot-toggle, .theme-toggle {
-            background: #3B82F6;
-            color: white;
+        .chatbot-toggle {
+            background:  #000;
+            color: #fff;
             border: none;
             width: 40px;
             height: 40px;
@@ -74,8 +75,8 @@
             transition: all 0.3s ease;
         }
         
-        .chatbot-toggle:hover, .theme-toggle:hover {
-            background: #2563EB;
+        .chatbot-toggle:hover {
+            background: #111;
             transform: rotate(90deg);
         }
         
@@ -281,8 +282,6 @@
             background: rgba(59, 130, 246, 0.2);
         }
         
-       
-        
         /* Responsive design */
         @media (max-width: 600px) {
             .chatbot-container {
@@ -323,11 +322,8 @@
     <!-- Chatbot Container -->
     <div class="chatbot-container" id="chatbot-container">
         <div class="chatbot-header">
-            <h3><i class="fas fa-robot"></i> VisionBot Assistant</h3>
+            <h3>VisionMinds Assistant</h3>
             <div class="header-controls">
-                <button class="theme-toggle" id="theme-toggle">
-                    <i class="fas fa-moon"></i>
-                </button>
                 <button class="chatbot-toggle" id="close-chatbot">
                     <i class="fas fa-times"></i>
                 </button>
@@ -364,7 +360,6 @@
             const chatbotLauncher = document.getElementById('chatbot-launcher');
             const chatbotContainer = document.getElementById('chatbot-container');
             const closeChatbot = document.getElementById('close-chatbot');
-            const themeToggle = document.getElementById('theme-toggle');
             const chatMessages = document.getElementById('chat-messages');
             const userInput = document.getElementById('user-input');
             const sendBtn = document.getElementById('send-btn');
@@ -377,19 +372,33 @@
                 previousResponses: {}
             };
             
-            
             // Show chatbot
-            chatbotLauncher.addEventListener('click', function() {
+            chatbotLauncher.addEventListener('click', function(e) {
+                e.stopPropagation();
                 chatbotContainer.classList.add('active');
                 // Execute reCAPTCHA when chatbot opens
                 executeCaptcha();
             });
             
             // Close chatbot
-            closeChatbot.addEventListener('click', function() {
+            closeChatbot.addEventListener('click', function(e) {
+                e.stopPropagation();
                 chatbotContainer.classList.remove('active');
             });
             
+            // Close chatbot when clicking outside
+            document.addEventListener('click', function(e) {
+                if (chatbotContainer.classList.contains('active') && 
+                    !chatbotContainer.contains(e.target) && 
+                    !chatbotLauncher.contains(e.target)) {
+                    chatbotContainer.classList.remove('active');
+                }
+            });
+            
+            // Prevent clicks inside chatbot from propagating to document
+            chatbotContainer.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
             
             // Send message on button click
             sendBtn.addEventListener('click', sendMessage);
