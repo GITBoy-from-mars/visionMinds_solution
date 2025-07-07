@@ -27,6 +27,25 @@
             transition: all 0.3s ease-in-out;
             overflow: hidden;
         }
+        
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #2563eb;
+            color: white;
+            font-size: 28px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+        }
+                
             
         /* ===== CSS Variables ===== */
         :root {
@@ -2516,15 +2535,30 @@
         });
     </script>
 
+            <iframe 
+            src="bot.html" 
+            title="VisionBot Assistant"
+            class="chatbot-iframe"
+            frameborder="0"
+            scrolling="no"
+        ></iframe>
 
-    
-    <iframe 
-    src="chatbot.html" 
-    title="VisionBot Assistant"
-    class="chatbot-iframe"
-    frameborder="0"
-    scrolling="no"
-></iframe>
+    <div class="chatbot-toggle" onclick="toggleChatbot()">💬</div>
+        
+        <iframe 
+            src="bot.html" 
+            title="VisionBot Assistant"
+            class="chatbot-iframe"
+            id="chatbotFrame"
+            style="display: none;"
+        ></iframe>
+
+            <script>
+        function toggleChatbot() {
+            const frame = document.getElementById('chatbotFrame');
+            frame.style.display = frame.style.display === 'none' ? 'block' : 'none';
+        }
+        </script>
 
 
     
