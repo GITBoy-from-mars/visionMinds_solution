@@ -377,8 +377,6 @@
                 previousResponses: {}
             };
             
-            // Theme state
-            let isDarkMode = false;
             
             // Show chatbot
             chatbotLauncher.addEventListener('click', function() {
@@ -392,31 +390,6 @@
                 chatbotContainer.classList.remove('active');
             });
             
-            // Theme toggle
-            themeToggle.addEventListener('click', function() {
-                isDarkMode = !isDarkMode;
-                updateTheme();
-                // Save theme preference to localStorage
-                localStorage.setItem('chatbotTheme', isDarkMode ? 'dark' : 'light');
-            });
-            
-            // Update theme based on current state
-            function updateTheme() {
-                if (isDarkMode) {
-                    chatbotContainer.classList.add('dark-mode');
-                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                } else {
-                    chatbotContainer.classList.remove('dark-mode');
-                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                }
-            }
-            
-            // Check for saved theme preference
-            const savedTheme = localStorage.getItem('chatbotTheme');
-            if (savedTheme === 'dark') {
-                isDarkMode = true;
-                updateTheme();
-            }
             
             // Send message on button click
             sendBtn.addEventListener('click', sendMessage);
