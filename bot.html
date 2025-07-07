@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionMinds Chatbot</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lf3KtApAAAAAL6vz0zZ2Z7Z7Z7Z7Z7Z7Z7Z7Z7Z"></script>
+    <style>
+        /* Chatbot container */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 380px;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            border: 1px solid #e2e8f0;
+            display: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .chatbot-container.active {
+            transform: translateY(0);
+            opacity: 1;
+            display: block;
+        }
+        
+        /* Chatbot header */
+        .chatbot-header {
+            background: #0f172a;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+        }
+        
+        .chatbot-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            color: #fff;
+            margin: 0;
+        }
+        
+        .chatbot-header i {
+            color: #3B82F6;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chatbot-toggle, .theme-toggle {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .chatbot-toggle:hover, .theme-toggle:hover {
+            background: #2563EB;
+            transform: rotate(90deg);
+        }
+        
+        /* Chat messages */
+        .chat-messages {
+            height: 350px;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #f1f5f9;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 15px;
+            border-radius: 18px;
+            font-size: 1rem;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
+            position: relative;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bot-message {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .user-message {
+            background: #3B82F6;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        /* Chat input */
+        .chat-input {
+            display: flex;
+            padding: 15px 20px;
+            background: #fff;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 30px;
+            color: #334155;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-input input:focus {
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .chat-input button {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chat-input button:hover {
+            background: #2563EB;
+            transform: scale(1.05);
+        }
+        
+        /* Typing indicator */
+        .typing-indicator {
+            display: none;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 12px 20px;
+            border-radius: 18px;
+            align-self: flex-start;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #94a3b8;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+        
+        /* Launcher button */
+        .chatbot-launcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: #3B82F6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        
+        .chatbot-launcher:hover {
+            background: #2563EB;
+            transform: scale(1.1);
+            animation: none;
+        }
+        
+        .chatbot-launcher i {
+            font-size: 1.8rem;
+            color: white;
+        }
+        
+        /* reCAPTCHA badge */
+        .captcha-badge {
+            position: fixed;
+            bottom: 110px;
+            right: 35px;
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            z-index: 998;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .captcha-badge i {
+            color: #3B82F6;
+        }
+        
+        /* Suggested questions */
+        .suggested-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .suggestion {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .suggestion:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Dark mode styles */
+        .chatbot-container.dark-mode {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        
+        .chatbot-container.dark-mode .chatbot-header {
+            background: #0f172a;
+            border-bottom: 1px solid #334155;
+        }
+        
+        .chatbot-container.dark-mode .chat-messages {
+            background: #0f172a;
+        }
+        
+        .chatbot-container.dark-mode .bot-message {
+            background: #334155;
+            border: 1px solid #475569;
+            color: #e2e8f0;
+        }
+        
+        .chatbot-container.dark-mode .user-message {
+            background: #3B82F6;
+            color: white;
+        }
+        
+        .chatbot-container.dark-mode .chat-input {
+            background: #0f172a;
+            border-top: 1px solid #334155;
+        }
+        
+        .chatbot-container.dark-mode .chat-input input {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        
+        .chatbot-container.dark-mode .chat-input input:focus {
+            border-color: #3B82F6;
+        }
+        
+        .chatbot-container.dark-mode .typing-indicator {
+            background: #334155;
+            border: 1px solid #475569;
+            color: #94a3b8;
+        }
+        
+        .chatbot-container.dark-mode .suggestion {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3B82F6;
+        }
+        
+        .chatbot-container.dark-mode .suggestion:hover {
+            background: rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .chatbot-container {
+                width: 95%;
+                right: 2.5%;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+            
+            .chatbot-launcher {
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+            }
+            
+            .captcha-badge {
+                bottom: 90px;
+                right: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Chatbot Launcher -->
+    <div class="chatbot-launcher" id="chatbot-launcher">
+        <i class="fas fa-comment-alt"></i>
+    </div>
+    
+    <!-- reCAPTCHA Badge -->
+    <div class="captcha-badge">
+        <i class="fas fa-shield-alt"></i>
+        <span>Protected by reCAPTCHA</span>
+    </div>
+    
+    <!-- Chatbot Container -->
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3><i class="fas fa-robot"></i> VisionBot Assistant</h3>
+            <div class="header-controls">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="chatbot-toggle" id="close-chatbot">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+                <strong>Hello! I'm VisionBot, your AI assistant.</strong><br>
+                How can I help you with VisionMinds solutions today?
+                <div class="suggested-questions">
+                    <div class="suggestion" data-question="What services do you offer?">Services</div>
+                    <div class="suggestion" data-question="How can I contact support?">Contact</div>
+                    <div class="suggestion" data-question="Tell me about your construction solutions">Construction Tech</div>
+                </div>
+            </div>
+        </div>
+        <div class="typing-indicator" id="typing-indicator">
+            <span></span>
+            <span></span>
+            <span></span>
+            VisionBot is typing...
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Ask about our services...">
+            <button id="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const chatbotLauncher = document.getElementById('chatbot-launcher');
+            const chatbotContainer = document.getElementById('chatbot-container');
+            const closeChatbot = document.getElementById('close-chatbot');
+            const themeToggle = document.getElementById('theme-toggle');
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            const typingIndicator = document.getElementById('typing-indicator');
+            
+            // Conversation state tracking
+            let conversationState = {
+                lastQuestion: null,
+                serviceInquiry: null,
+                previousResponses: {}
+            };
+            
+            // Theme state
+            let isDarkMode = false;
+            
+            // Show chatbot
+            chatbotLauncher.addEventListener('click', function() {
+                chatbotContainer.classList.add('active');
+                // Execute reCAPTCHA when chatbot opens
+                executeCaptcha();
+            });
+            
+            // Close chatbot
+            closeChatbot.addEventListener('click', function() {
+                chatbotContainer.classList.remove('active');
+            });
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', function() {
+                isDarkMode = !isDarkMode;
+                updateTheme();
+                // Save theme preference to localStorage
+                localStorage.setItem('chatbotTheme', isDarkMode ? 'dark' : 'light');
+            });
+            
+            // Update theme based on current state
+            function updateTheme() {
+                if (isDarkMode) {
+                    chatbotContainer.classList.add('dark-mode');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    chatbotContainer.classList.remove('dark-mode');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            }
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('chatbotTheme');
+            if (savedTheme === 'dark') {
+                isDarkMode = true;
+                updateTheme();
+            }
+            
+            // Send message on button click
+            sendBtn.addEventListener('click', sendMessage);
+            
+            // Send message on Enter key
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Suggested questions
+            document.querySelectorAll('.suggestion').forEach(button => {
+                button.addEventListener('click', function() {
+                    const question = this.getAttribute('data-question');
+                    userInput.value = question;
+                    sendMessage();
+                });
+            });
+            
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (message) {
+                    // Add user message to chat
+                    addMessage(message, 'user');
+                    
+                    // Clear input
+                    userInput.value = '';
+                    
+                    // Show typing indicator
+                    typingIndicator.style.display = 'flex';
+                    
+                    // Process the message and get bot response after a delay
+                    setTimeout(() => {
+                        typingIndicator.style.display = 'none';
+                        const response = getBotResponse(message);
+                        addMessage(response, 'bot');
+                        
+                        // Update conversation state
+                        conversationState.lastQuestion = message;
+                        conversationState.previousResponses[message] = response;
+                    }, 1000);
+                }
+            }
+            
+            function addMessage(text, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(sender + '-message');
+                
+                // Create message content with proper formatting
+                const messageContent = document.createElement('div');
+                messageContent.textContent = text;
+                messageElement.appendChild(messageContent);
+                
+                // Add suggested questions for bot messages
+                if (sender === 'bot') {
+                    const suggestions = document.createElement('div');
+                    suggestions.classList.add('suggested-questions');
+                    
+                    // Context-aware suggestions
+                    if (text.includes('services')) {
+                        suggestions.innerHTML = `
+                            <div class="suggestion" data-question="Tell me about AI Automation">AI Automation</div>
+                            <div class="suggestion" data-question="What is Construction Tech?">Construction Tech</div>
+                            <div class="suggestion" data-question="How does security work?">Security</div>
+                        `;
+                    } else if (text.includes('construction')) {
+                        suggestions.innerHTML = `
+                            <div class="suggestion" data-question="How does IoT integration work?">IoT Integration</div>
+                            <div class="suggestion" data-question="Can you provide a demo?">Request Demo</div>
+                            <div class="suggestion" data-question="What industries use this?">Industries</div>
+                        `;
+                    } else if (text.includes('demo')) {
+                        suggestions.innerHTML = `
+                            <div class="suggestion" data-question="What is the demo process?">Demo Process</div>
+                            <div class="suggestion" data-question="How long does a demo take?">Demo Duration</div>
+                            <div class="suggestion" data-question="Is there a demo cost?">Demo Cost</div>
+                        `;
+                    } else {
+                        suggestions.innerHTML = `
+                            <div class="suggestion" data-question="What industries do you serve?">Industries</div>
+                            <div class="suggestion" data-question="How does your AI solution work?">AI Technology</div>
+                            <div class="suggestion" data-question="Do you offer demos?">Demo Request</div>
+                        `;
+                    }
+                    
+                    messageElement.appendChild(suggestions);
+                    
+                    // Reattach event listeners to new suggestions
+                    suggestions.querySelectorAll('.suggestion').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const question = this.getAttribute('data-question');
+                            userInput.value = question;
+                            sendMessage();
+                        });
+                    });
+                }
+                
+                chatMessages.appendChild(messageElement);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            function getBotResponse(userMessage) {
+                const lowerMessage = userMessage.toLowerCase();
+                
+                // Check if this is a repeated question
+                if (conversationState.previousResponses[userMessage]) {
+                    return "I've already provided information on this topic. Would you like to explore another area or get more details?";
+                }
+                
+                // Predefined responses with improved flow
+                if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                    return "Hello! Welcome to VisionMinds. How can I assist you today?";
+                } else if (lowerMessage.includes('service') || lowerMessage.includes('offer') || lowerMessage.includes('provide')) {
+                    conversationState.serviceInquiry = true;
+                    return "VisionMinds offers comprehensive solutions including:\n\n• AI-Powered Automation Solutions\n• Construction Tech Innovations\n• Operational Excellence Consulting\n• Enterprise Security Solutions\n\nWhich service would you like to learn more about?";
+                } else if (lowerMessage.includes('contact') || lowerMessage.includes('email') || lowerMessage.includes('phone') || lowerMessage.includes('support')) {
+                    return "You can reach our support team through these channels:\n\n📧 Email: support@visionminds.in\n📞 Phone: +91 98765 43210\n📍 Address: 123 Innovation Drive, Tech Park, Bangalore\n\nOur team is available Monday-Friday, 9AM-6PM IST.";
+                } else if (lowerMessage.includes('construction') || lowerMessage.includes('build') || lowerMessage.includes('iot')) {
+                    return "Our Construction 4.0 solutions feature:\n\n✅ IoT-enabled site monitoring\n✅ Predictive equipment maintenance\n✅ Real-time resource optimization\n✅ Safety compliance systems\n✅ Supply chain analytics\n\nWould you like a personalized demo?";
+                } else if (lowerMessage.includes('ai') || lowerMessage.includes('artificial intelligence') || lowerMessage.includes('automation')) {
+                    return "Our AI solutions leverage cutting-edge technologies:\n\n🤖 Machine Learning for predictive analytics\n👁️ Computer Vision for quality control\n🗣️ NLP for document processing\n📊 Data science for operational insights\n\nWe customize solutions for your specific enterprise needs.";
+                } else if (lowerMessage.includes('security') || lowerMessage.includes('compliance')) {
+                    return "Our security framework includes:\n\n🔒 End-to-end encryption\n🛡️ SOC 2 compliance\n📜 GDPR-ready solutions\n🔑 Role-based access control\n✅ Regular security audits\n\nWe ensure your automation is both efficient and secure.";
+                } else if (lowerMessage.includes('demo') || lowerMessage.includes('trial') || lowerMessage.includes('show')) {
+                    return "We'd be delighted to give you a personalized demo! Our demo process includes:\n\n1. Discovery call to understand your needs\n2. Tailored demonstration of relevant features\n3. Q&A session with our experts\n4. Follow-up with resources\n\nWould you like to schedule a demo?";
+                } else if (lowerMessage.includes('thank') || lowerMessage.includes('thanks')) {
+                    return "You're welcome! Is there anything else I can help you with today?";
+                } else if (lowerMessage.includes('bye') || lowerMessage.includes('goodbye') || lowerMessage.includes('exit')) {
+                    return "Thank you for chatting with VisionBot! Feel free to return anytime. Have a productive day!";
+                } else if (lowerMessage.includes('industry') || lowerMessage.includes('sector')) {
+                    return "We serve diverse industries including:\n\n🏭 Manufacturing\n🏗️ Construction & Engineering\n🚚 Logistics & Supply Chain\n🏦 Financial Services\n🏥 Healthcare\n💊 Pharmaceuticals\n\nWhich industry are you most interested in?";
+                } else {
+                    return "I specialize in VisionMinds solutions and can help with:\n\n• Service information\n• Technical inquiries\n• Demo scheduling\n• Support contacts\n\nHow can I assist you today?";
+                }
+            }
+            
+            // reCAPTCHA v3 integration
+            function executeCaptcha() {
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('6Lf3KtApAAAAAL6vz0zZ2Z7Z7Z7Z7Z7Z7Z7Z7Z7Z', {action: 'chatbot'})
+                    .then(function(token) {
+                        console.log("reCAPTCHA verification successful");
+                        // In a real implementation, you would send this token to your server
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
