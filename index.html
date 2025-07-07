@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VisionMinds Solution | Planning Excellence Optimizing Operations</title>
     
-    <!-- ✅ Add this favicon line -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <!-- Optional: PNG support -->
@@ -16,6 +15,19 @@
 
     
     <style>
+        .chatbot-iframe {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 400px;
+            height: 550px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+        }
+            
         /* ===== CSS Variables ===== */
         :root {
             /* Primary Colors */
@@ -2503,6 +2515,19 @@
             });
         });
     </script>
+
+
+    
+    <iframe 
+    src="chatbot.html" 
+    title="VisionBot Assistant"
+    class="chatbot-iframe"
+    frameborder="0"
+    scrolling="no"
+></iframe>
+
+
+    
 </body>
 </html>
 
