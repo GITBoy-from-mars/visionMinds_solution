@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VisionMinds Chatbot</title>
@@ -393,12 +391,8 @@
             }
         }
     </style>
-</head>
 <body>
    
-    
-    <!-- Footer -->
-
     
     <!-- Chatbot Launcher -->
     <div class="chatbot-launcher" id="chatbot-launcher">
@@ -485,11 +479,6 @@
                     !chatbotLauncher.contains(e.target)) {
                     chatbotContainer.classList.remove('active');
                 }
-            });
-            
-            // Prevent clicks inside chatbot from propagating to document
-            chatbotContainer.addEventListener('click', function(e) {
-                e.stopPropagation();
             });
             
             // Send message on button click
