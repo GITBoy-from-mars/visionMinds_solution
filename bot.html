@@ -24,7 +24,6 @@
             border: 1px solid #e2e8f0;
             display: none;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            pointer-events: auto; /* Ensures only the chatbot captures events */
         }
         
         .chatbot-container.active {
@@ -35,7 +34,7 @@
         
         /* Chatbot header */
         .chatbot-header {
-            background: #0f172a;
+            background: #111;
             padding: 20px;
             display: flex;
             justify-content: space-between;
@@ -53,7 +52,7 @@
         }
         
         .chatbot-header i {
-            color: #3B82F6;
+            color: #000;
         }
         
         .header-controls {
@@ -62,8 +61,8 @@
         }
         
         .chatbot-toggle {
-            background:  #000;
-            color: #fff;
+            background: #fff;
+            color: white;
             border: none;
             width: 40px;
             height: 40px;
@@ -76,7 +75,7 @@
         }
         
         .chatbot-toggle:hover {
-            background: #111;
+            background: #f1f5f9;
             transform: rotate(90deg);
         }
         
@@ -282,6 +281,94 @@
             background: rgba(59, 130, 246, 0.2);
         }
         
+        /* Page content styling */
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            flex: 1;
+            min-width: 300px;
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #3B82F6;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: #0f172a;
+            margin-top: 0;
+        }
+        
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3B82F6;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #2563EB;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer a {
+            color: #3B82F6;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
         /* Responsive design */
         @media (max-width: 600px) {
             .chatbot-container {
@@ -308,6 +395,11 @@
     </style>
 </head>
 <body>
+   
+    
+    <!-- Footer -->
+
+    
     <!-- Chatbot Launcher -->
     <div class="chatbot-launcher" id="chatbot-launcher">
         <i class="fas fa-comment-alt"></i>
@@ -322,7 +414,7 @@
     <!-- Chatbot Container -->
     <div class="chatbot-container" id="chatbot-container">
         <div class="chatbot-header">
-            <h3>VisionMinds Assistant</h3>
+            <h3>VisionMinds AI Assistant</h3>
             <div class="header-controls">
                 <button class="chatbot-toggle" id="close-chatbot">
                     <i class="fas fa-times"></i>
@@ -331,8 +423,8 @@
         </div>
         <div class="chat-messages" id="chat-messages">
             <div class="message bot-message">
-                <strong>Hello! I'm VisionBot, your AI assistant.</strong><br>
-                How can I help you with VisionMinds solutions today?
+                <strong>Hello! I'm VisionMinds AI Assistant .</strong><br>
+                How can I help you with VisionMinds services today?
                 <div class="suggested-questions">
                     <div class="suggestion" data-question="What services do you offer?">Services</div>
                     <div class="suggestion" data-question="How can I contact support?">Contact</div>
